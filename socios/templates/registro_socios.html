@@ -1,0 +1,167 @@
+
+{% extends "base_index.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <!-- left column -->
+        <div class="col-md-8">
+            <!-- Horizontal Form -->
+            <div class="card card-warning">
+                <div class="card-header">
+                <h3 class="card-title">Ingrese los datos</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                
+                {% include 'messages.html' %}
+                <form class="form-horizontal" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        {{ form.non_field_errors }}
+                        <div class="form-group row">
+                            <label for="{{ form.rut.id_for_label }}" class="col-sm-2 col-form-label">{{ form.rut.label}}</label>
+                            <div class="col-sm-10">
+                            {{ form.rut }}
+                            {% if form.rut.errors %}
+                                <p class="text-danger">{{ form.rut.errors|escape }}</p>
+                            {% endif %}
+                            </div>
+                            
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="{{ form.correo.id_for_label }}" class="col-sm-2 col-form-label">{{ form.correo.label}}</label>
+                            <div class="col-sm-10">
+                            {{ form.correo }}
+                            {% if form.correo.errors %}
+                                <p class="text-danger">{{ form.correo.errors|escape }}</p>
+                            {% endif %}
+                            </div>
+                        </div>                                    
+
+                        <div class="form-group row">
+                            <label for="{{ form.nombres.id_for_label }}" class="col-sm-2 col-form-label">{{ form.nombres.label}}</label>
+                            <div class="col-sm-10">
+                            {{ form.nombres }}
+                            {% if form.nombres.errors %}
+                                <p class="text-danger">{{ form.nombres.errors|escape }}</p>
+                            {% endif %}                            
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="{{ form.apellidos.id_for_label }}" class="col-sm-2 col-form-label">{{ form.apellidos.label}}</label>
+                            <div class="col-sm-10">
+                            {{ form.apellidos }}
+                            {% if form.apellidos.errors %}
+                                <p class="text-danger">{{ form.apellidos.errors|escape }}</p>
+                            {% endif %}                            
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">{{ form.fecha_nacimiento.label }}</label>
+                            <div class="col-sm-10 input-group date" id="reservationdate" data-target-input="nearest">
+                                {{ form.fecha_nacimiento }}
+                                <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                                {% if form.fecha_nacimiento.errors %}
+                                    <p class="text-danger">{{ form.fecha_nacimiento.errors|escape }}</p>
+                                {% endif %}                                
+                            </div>
+                        </div>                                    
+                        
+                        <div class="form-group row">
+                            <label for="{{ form.ocupacion.id_for_label }}" class="col-sm-2 col-form-label">{{ form.ocupacion.label }}</label>
+                            <div class="col-sm-10">
+                                {{ form.ocupacion }}
+                                {% if form.ocupacion.errors %}
+                                    <p class="text-danger">{{ form.ocupacion.errors|escape }}</p>
+                                {% endif %}                                
+                            </div>
+                        </div>   
+
+                        <div class="form-group row">
+                            <label for="{{ form.direccion.id_for_label }}" class="col-sm-2 col-form-label">{{ form.direccion.label }}</label>
+                            <div class="col-sm-10">
+                                {{ form.direccion }}
+                                {% if form.direccion.errors %}
+                                    <p class="text-danger">{{ form.direccion.errors|escape }}</p>
+                                {% endif %}                                
+                            </div>
+                        </div> 
+                    
+                        <div class="form-group row">
+                            <label for="{{ form.telefono.id_for_label }}" class="col-sm-2 col-form-label">{{ form.telefono.label }}</label>
+                            <div class="col-sm-10 input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">+569</span>
+                                </div>
+                                {{ form.telefono }}
+                                {% if form.telefono.errors %}
+                                    <p class="text-danger">{{ form.telefono.errors|escape }}</p>
+                                {% endif %}                                                                
+                            </div>
+                        </div>                                                                       
+
+                        <div class="form-group row">
+                            
+                            <div class="col-sm-10 input-group">
+                                {{ form.foto }}
+                                {% if form.foto.errors %}
+                                    <p class="text-danger">{{ form.foto.errors|escape }}</p>
+                                {% endif %}                                
+                            </div>
+                           
+                        </div>  
+
+
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success">
+                            Registrar
+                        </button>
+                        <a href="#" class="btn btn-default float-right">Cancelar</a>
+                    </div>
+                    <!-- /.card-footer -->
+                </form>
+            </div>
+            <!-- /.card -->
+        </div>
+        <!--/.col (left) -->
+        <div class="col-md-2"></div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+
+    <!-- Datepicker  -->
+    <script>
+        $(function () {
+            //Timepicker
+            $('#timepicker').datetimepicker({
+            format: 'LT'
+            })
+
+            //Date picker
+            $('#reservationdate').datetimepicker({
+                format: 'L'
+            });
+        })
+        
+    </script>
+
+    <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+    <script src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+
+{% endblock %}
